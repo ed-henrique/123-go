@@ -3,6 +3,8 @@ package main
 import (
 	"fmt"
 	"time"
+
+	utils "123-go/utils"
 )
 
 func main() {
@@ -11,12 +13,11 @@ func main() {
 
 	go func() {
 		for {
-			fmt.Printf("\r%v", time.Since(now).Milliseconds())
+			fmt.Printf("\r%v", utils.FormatTime(time.Since(now).Milliseconds()))
 		}
-
 	}()
 
 	fmt.Scanln(&i)
 	timeElapsed := time.Since(now)
-	fmt.Println(timeElapsed)
+	fmt.Println("\rTime elapsed:", timeElapsed.String())
 }
