@@ -3,7 +3,7 @@ package main
 import (
 	"testing"
 
-	utils "123-go/utils"
+	utils "github.com/ed-henrique/123-go/utils"
 )
 
 func TestFormatTime(t *testing.T) {
