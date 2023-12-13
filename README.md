@@ -4,19 +4,15 @@ Stopwatch CLI using Go.
 
 ## WORK IN PROGRESS -- How to Use -- WORK IN PROGRESS
 
-First of all, install the package:
-
-```bash
-go install github.com/ed-henrique/123-go
-```
+1. Install the [latest release](https://github.com/ed-henrique/123-go/releases/latest) for your OS
 
 ### Stopwatch Mode
 
-Execute the command `123-go` and press `Enter` when done. The elapsed time will be shown.
+Run the binary `123-go` and press `Enter` when done. The elapsed time will be shown.
 
 ### Timer Mode
 
-Execute the command `123-go` with the `--timer` flag, specifying the amount of milliseconds for the time to count down from.
+Run the binary `123-go` with the `--timer` flag, specifying the amount of milliseconds for the time to count down from.
 
 <details>
 <summary>Example</summary>
@@ -27,10 +23,6 @@ Execute the command `123-go` with the `--timer` flag, specifying the amount of m
 
 </details>
 
-```bash
-go run main.go
-```
-
 ## Development Environment Setup
 
 1. Clone the repo
@@ -39,13 +31,20 @@ go run main.go
 git clone git@github.com/ed-henrique/123-go.git
 ```
 
-2. Run the program
+2. Install the dependencies
 
 ```bash
-go run main.go
+go get ./...
+```
+
+3. Run the program
+
+```bash
+go run cmd/123-go/main.go
 ```
 
 ## Roadmap
 
+- [ ] Build beautiful TUI
 - [x] Time from milliseconds to days
 - [x] Act as both a timer and a stopwatch
