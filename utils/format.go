@@ -1,29 +1,63 @@
 package utils
 
-import "fmt"
+import (
+	"fmt"
+	"os"
+	"strings"
 
-func FormatTime(milliseconds int64) (result string) {
-	if milliseconds < 1000 {
+	"golang.org/x/term"
+)
+
+func PrintCentered(text string) {
+	width, _, err := term.GetSize(0)
+
+	if err != nil {
+		fmt.Println("Could not print time!")
+		os.Exit(1)
+	}
+
+	centerHorizontal := (width - len(text)) / 2
+
+	fmt.Printf("\r%s%s", strings.Repeat(" ", centerHorizontal), text)
+}
+
+func PrintTime(time int64) {
+	width, _, err := term.GetSize(0)
+
+	if err != nil {
+		fmt.Println("Could not print time!")
+		os.Exit(1)
+	}
+
+	formattedTime := formatTime(time)
+	centerHorizontal := (width - len(formattedTime)) / 2
+
+	fmt.Printf("\r%s%v", strings.Repeat(" ", centerHorizontal), formattedTime)
+}
+
+func formatTime(milliseconds int64) (result string) {
+	switch {
+	case milliseconds < 1000:
 		result = fmt.Sprintf("0.%ds", milliseconds)
-	} else if milliseconds < 10000 {
+	case milliseconds < 10000:
 		seconds := milliseconds / 1000
 		milliseconds := milliseconds % 1000
 		result = fmt.Sprintf("%d.%03ds", seconds, milliseconds)
-	} else if milliseconds < 60000 {
+	case milliseconds < 60000:
 		seconds := milliseconds / 1000
 		milliseconds := milliseconds % 1000
 		result = fmt.Sprintf("%2d.%03ds", seconds, milliseconds)
-	} else if milliseconds < 600000 {
+	case milliseconds < 600000:
 		minutes := milliseconds / 60000
 		seconds := (milliseconds % 60000) / 1000
 		milliseconds := milliseconds % 1000
 		result = fmt.Sprintf("%d:%02d.%03ds", minutes, seconds, milliseconds)
-	} else if milliseconds < 3600000 {
+	case milliseconds < 3600000:
 		minutes := milliseconds / 60000
 		seconds := (milliseconds % 60000) / 1000
 		milliseconds := milliseconds % 1000
 		result = fmt.Sprintf("%2d:%02d.%03ds", minutes, seconds, milliseconds)
-	} else {
+	default:
 		hours := milliseconds / 3600000
 		minutes := (milliseconds % 3600000) / 60000
 		seconds := (milliseconds % 60000) / 1000
